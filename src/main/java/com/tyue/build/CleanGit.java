@@ -13,7 +13,7 @@ public class CleanGit {
     public static void main(String[] args) {
         File folder = new File("E:\\git-repository\\Temp\\20170721");
         listDirectory(folder);
-        result.forEach(file -> System.out.println(file));
+        //result.forEach(file -> System.out.println(file));
         for (File dir : result) {
             String cmd ;
             if(dir.isFile()){
