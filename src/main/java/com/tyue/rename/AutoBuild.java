@@ -1,5 +1,8 @@
 
-package com.tyue.build;
+package com.tyue.rename;
+
+import com.tyue.build.PropertyHelper;
+import com.tyue.build.StreamGobbler;
 
 import java.io.File;
 import java.io.IOException;

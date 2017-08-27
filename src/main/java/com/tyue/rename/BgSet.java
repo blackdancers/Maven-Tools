@@ -1,4 +1,4 @@
-package com.tyue.build;
+package com.tyue.rename;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;

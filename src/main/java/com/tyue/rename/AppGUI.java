@@ -1,4 +1,4 @@
-package com.tyue.build;
+package com.tyue.rename;
 
 public class AppGUI {
 	

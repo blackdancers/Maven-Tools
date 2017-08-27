@@ -1,4 +1,4 @@
-package com.tyue.build;
+package com.tyue.rename;
 
 import java.io.File;
 import java.util.Scanner;

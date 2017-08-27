@@ -1,6 +1,11 @@
 package com.tyue.build;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * 
@@ -20,7 +25,7 @@ public class FileUtils {
 		try {
 			Runtime rt = Runtime.getRuntime();
 			// put your directory path instead of your_directory_path
-			Process process = rt.exec("attrib -s -h -r F:\\Videos\\Downloads");
+			Process process = rt.exec("cmd.exe /C attrib -s -h -r F:\\Videos\\Downloads");
 			//阻塞处理
 			StreamGobbler errorGobbler = new StreamGobbler(process.getErrorStream(), "ERROR");  
 			errorGobbler.start(); 
@@ -75,7 +80,14 @@ public class FileUtils {
 	
 	
 	public static void main(String[] args) {
-		hiddenFolders();
+		Path path = FileSystems.getDefault().getPath("F:","/Videos/Downloads");
+		System.out.println(path.toString());
+		try {
+			Files.setAttribute(path,"dos:hidden",true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//hiddenFolders();
 	}
 
 }
