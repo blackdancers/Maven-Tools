@@ -11,15 +11,15 @@ public class CleanGit {
     static List<File> result = new ArrayList<>();
 
     public static void main(String[] args) {
-        File folder = new File("E:\\git-repository\\Temp\\20170721");
+        File folder = new File("E:/git-repository/wk-ec-20160510/backup");
         listDirectory(folder);
         //result.forEach(file -> System.out.println(file));
         for (File dir : result) {
-            String cmd ;
-            if(dir.isFile()){
-                cmd = "cmd.exe /c del /q/a/f/s "+dir.getAbsolutePath();
-            }else{
-                cmd = "cmd.exe /c rd /s/q "+dir.getAbsolutePath();
+            String cmd;
+            if (dir.isFile()) {
+                cmd = "cmd.exe /c del /q/a/f/s " + dir.getAbsolutePath();
+            } else {
+                cmd = "cmd.exe /c rd /s/q " + dir.getAbsolutePath();
             }
 
             Runtime run = Runtime.getRuntime();
@@ -51,7 +51,18 @@ public class CleanGit {
         if (files != null && files.length > 0) {
             for (File file : files) {
                 if (file.isDirectory()) {
-                    if (file.getName().equals(".idea")) {
+                    if (file.getName().equals(".git")) {
+                        result.add(file);
+                    } else {
+                        listDirectory(file);
+                    }
+                }
+                if (file.isFile()) {
+                    if (file.getName().endsWith(".gitignore")) {
+                        result.add(file);
+                    } else if (file.getName().equals("readme.txt")) {
+                        result.add(file);
+                    } else if (file.getName().endsWith(".iml")) {
                         result.add(file);
                     } else {
                         listDirectory(file);
