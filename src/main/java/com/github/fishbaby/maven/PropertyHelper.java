@@ -1,4 +1,4 @@
-package com.tyue.build;
+package com.github.fishbaby.maven;
 
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;

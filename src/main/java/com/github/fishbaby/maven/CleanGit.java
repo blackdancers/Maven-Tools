@@ -1,4 +1,4 @@
-package com.tyue.build;
+package com.github.fishbaby.maven;
 
 
 import java.io.File;
@@ -51,7 +51,7 @@ public class CleanGit {
         if (files != null && files.length > 0) {
             for (File file : files) {
                 if (file.isDirectory()) {
-                    if (file.getName().equals(".git")) {
+                    if (file.getName().equals(".git")|| file.getName().equals("target")) {
                         result.add(file);
                     } else {
                         listDirectory(file);
@@ -65,8 +65,8 @@ public class CleanGit {
                     } else if (file.getName().endsWith(".iml")) {
                         result.add(file);
                     } else {
-                        listDirectory(file);
                     }
+                        listDirectory(file);
                 }
             }
         }

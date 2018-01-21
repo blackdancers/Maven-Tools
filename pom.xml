@@ -1,9 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.tyue.mp</groupId>
+	<groupId>com.tyue</groupId>
 	<artifactId>Maven-Tools</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>${project.artifactId}</name>
+	<url>Maven-Tools</url>
+	<description>Maven-Tools</description>
+
 	<dependencies>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -31,54 +37,58 @@
 			<version>3.2.1</version>
 		</dependency>
 	</dependencies>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<skip_maven_deploy>true</skip_maven_deploy>
+	</properties>
+
 	<build>
-		<finalName>Maven-Tools</finalName>
-		<sourceDirectory>src/main/java</sourceDirectory>
+		<finalName>${project.artifactId}</finalName>
 		<resources>
-			<!-- 控制资源文件的拷贝 -->
 			<resource>
+				<targetPath>${project.build.directory}/classes</targetPath>
 				<directory>src/main/resources</directory>
-				<targetPath>${project.build.directory}</targetPath>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+				</includes>
 			</resource>
 		</resources>
-
 		<plugins>
-			<!-- 设置源文件编码方式 -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
 			<!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
+					<classesDirectory>target/classes/</classesDirectory>
 					<archive>
 						<manifest>
+							<mainClass>com.tyue.build.DeleteLastUpdated.main</mainClass>
+							<!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
+							<useUniqueVersions>false</useUniqueVersions>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>cn.home.maventool.DelLastUpdated</mainClass>
 						</manifest>
+						<manifestEntries>
+							<Class-Path>.</Class-Path>
+						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>
-			<!-- 拷贝依赖的jar包到lib目录 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>copy</id>
+						<id>copy-dependencies</id>
 						<phase>package</phase>
 						<goals>
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
+							<type>jar</type>
+							<includeTypes>jar</includeTypes>
 							<outputDirectory>
 								${project.build.directory}/lib
 							</outputDirectory>
@@ -86,58 +96,19 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- 解决资源文件的编码问题 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.4</version>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
 				<configuration>
-					<encoding>UTF-8</encoding>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF8</encoding>
 				</configuration>
 			</plugin>
-			
 		</plugins>
-
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.maven.plugins
-										</groupId>
-										<artifactId>
-											maven-resources-plugin
-										</artifactId>
-										<versionRange>
-											[2.3,)
-										</versionRange>
-										<goals>
-											<goal>testResources</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
 
 
-	<name>Maven-Tools</name>
-	<url>Maven-Tools</url>
-	<description>Maven-Tools</description>
+
 </project>

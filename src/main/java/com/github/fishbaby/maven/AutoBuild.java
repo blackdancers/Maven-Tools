@@ -1,8 +1,5 @@
 
-package com.tyue.rename;
-
-import com.tyue.build.PropertyHelper;
-import com.tyue.build.StreamGobbler;
+package com.github.fishbaby.maven;
 
 import java.io.File;
 import java.io.IOException;
