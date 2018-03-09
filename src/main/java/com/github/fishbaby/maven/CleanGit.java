@@ -6,12 +6,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 清楚 版本信息
+ * @author fish
+ *
+ */
 public class CleanGit {
 
     static List<File> result = new ArrayList<>();
 
     public static void main(String[] args) {
-        File folder = new File("E:/git-repository/wk-ec-20160510/backup");
+        File folder = new File("E:/git-repository/backup");
         listDirectory(folder);
         //result.forEach(file -> System.out.println(file));
         for (File dir : result) {
