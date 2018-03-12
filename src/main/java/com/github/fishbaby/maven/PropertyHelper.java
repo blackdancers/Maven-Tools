@@ -1,5 +1,6 @@
 package com.github.fishbaby.maven;
 
+import java.io.UnsupportedEncodingException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
@@ -12,7 +13,16 @@ public class PropertyHelper {
 	}
 
 	public String getValue(String key) {
-		return this.propBundle.getString(key);
+		return this.get(key);
 	}
+	public String get(String key) {
+        String str = "";
+        try {
+            str = new String(this.propBundle.getString(key).getBytes("ISO-8859-1"),"UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
 
 }
